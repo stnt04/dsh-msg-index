@@ -29,7 +29,7 @@ DSH 的对话页面只渲染视口附近的少量消息（虚拟窗口），更�
 dsh plugin --profile web add -w https://github.com/stnt04/dsh-msg-index/releases/latest/download/dsh-msg-index.tgz
 
 # 或指定版本安装：
-dsh plugin --profile web add -w https://github.com/stnt04/dsh-msg-index/releases/download/v1.0.0/dsh-msg-index-1.0.0.tgz
+dsh plugin --profile web add -w https://github.com/stnt04/dsh-msg-index/releases/download/v1.0.0/dsh-msg-index.tgz
 ```
 
 安装后重启 `dsh web`，在对话窗口右下角即可看到悬浮圆球。
@@ -38,7 +38,7 @@ dsh plugin --profile web add -w https://github.com/stnt04/dsh-msg-index/releases
 
 ## 发布
 
-打一个 `v*` 标签推送到 GitHub 即可触发 Actions 自动构建并发布 Release（附件包含 `dsh-msg-index-<version>.tgz`）：
+打一个 `v*` 标签推送到 GitHub 即可触发 Actions 自动构建并发布 Release（附件为固定文件名 `dsh-msg-index.tgz`，latest 链接自动指向最新版）：
 
 ```sh
 git tag v1.0.0
