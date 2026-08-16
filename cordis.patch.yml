@@ -1,0 +1,4 @@
+# dsh-msg-index bundle patch: inserts the plugin into a profile's layer stack.
+- insert:
+    - id: dsh-msg-index
+      name: 'dsh-msg-index'
