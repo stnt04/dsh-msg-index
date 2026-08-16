@@ -269,6 +269,11 @@ function Rail(props: RailProps) {
   const [query, setQuery] = useState('')
   const [jumpFail, setJumpFail] = useState(false)
   const dragRef = useRef<{ startX: number; startY: number; origLeft: number; origTop: number } | null>(null)
+  /** 上一次 resize 时的视口尺寸（用于保持球距右/下边缘的距离）。 */
+  const viewportRef = useRef({
+    vw: typeof window !== 'undefined' ? window.innerWidth : 1280,
+    vh: typeof window !== 'undefined' ? window.innerHeight : 800,
+  })
   /** 拖动是否已超过阈值（用于区分"拖动"与"点击"）。 */
   const movedRef = useRef(false)
   /** 按下时刻：长按超过阈值（无论是否拖动）不触发展开/收起。 */
@@ -278,9 +283,16 @@ function Rail(props: RailProps) {
   /** 用户消息（快照层，已全量加载后覆盖整个会话）。 */
   const marks = useMemo(() => collectMarks(order, nodes), [order, nodes])
 
-  // 窗口尺寸变化时重新钳制球的位置，避免缩小窗口后球被推出视口。
+  // 窗口尺寸变化时按比例映射球的位置：贴边的球缩放时跟随对应边缘，
+  // 放大回原尺寸后回到原位附近（若窗口过小则钳制在视口内）。
   useEffect(() => {
-    const onResize = () => setPos((p) => clampBall(p.left, p.top))
+    const onResize = () => {
+      const vw = typeof window !== 'undefined' ? window.innerWidth : 1280
+      const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+      const { vw: vw0, vh: vh0 } = viewportRef.current
+      setPos((p) => clampBall(p.left / vw0 * vw, p.top / vh0 * vh))
+      viewportRef.current = { vw, vh }
+    }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])

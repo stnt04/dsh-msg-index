@@ -1,7 +1,7 @@
 {
   "name": "dsh-msg-index",
   "description": "对话窗口悬浮磨砂圆球：一键展开当前会话的用户消息索引，点击定位到对应消息。Floating frosted-glass ball in the chat window: expand an index of the current session's user messages, click to jump to that message.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "main": "lib/index.js",
