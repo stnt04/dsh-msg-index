@@ -58,7 +58,7 @@ npm pack       # 生成发布用 dsh-msg-index-<version>.tgz（可选，本地�
 
 ## 工作原理
 
-- 通过 `shell.overlay` 插槽注入宿主组件，再用 `SessionProvider` 桥接一个 **session 作用域子插槽**（`dsh-msg-index.rail`），组件直接拿到当前 `sessionId` 与 `useSession` 订阅器（与 dsh-message-rail 同款模式）。
+- 通过 `shell.overlay` 插槽注入宿主组件，再用 `SessionProvider` 桥接一个 **session 作用域子插槽**（`dsh-msg-index.rail`），组件直接拿到当前 `sessionId` 与 `useSession` 订阅器。
 - 会话数据来自 **`sessions` 服务**：`session.getSnapshot()` 读取 `chat.order` / `chat.nodes`，`session.loadOlder()` 拉取更早历史，直到 `hasMore` 为 false。
 - 用户消息 = 节点 `kind === "user"` 的条目，文本从 `data.content` 提取。
 - 页面定位用运行时自带的 **`data-chat-anchor-key` 属性**（值即节点 key）精确匹配行元素，未渲染的行按其在消息顺序中的比例粗滚滚动容器后再轮询定位。
