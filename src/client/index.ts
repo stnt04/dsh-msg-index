@@ -70,9 +70,10 @@ const MARGIN = 4
 const clampBall = (left: number, top: number) => {
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1280
   const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+  const topMin = Math.min(MIN_TOP, Math.max(0, vh - BALL_SIZE - MARGIN))
   return {
     left: Math.max(MARGIN, Math.min(vw - BALL_SIZE - MARGIN, left)),
-    top: Math.max(MIN_TOP, Math.min(vh - BALL_SIZE - MARGIN, top)),
+    top: Math.max(topMin, Math.min(vh - BALL_SIZE - MARGIN, top)),
   }
 }
 
@@ -276,6 +277,13 @@ function Rail(props: RailProps) {
 
   /** 用户消息（快照层，已全量加载后覆盖整个会话）。 */
   const marks = useMemo(() => collectMarks(order, nodes), [order, nodes])
+
+  // 窗口尺寸变化时重新钳制球的位置，避免缩小窗口后球被推出视口。
+  useEffect(() => {
+    const onResize = () => setPos((p) => clampBall(p.left, p.top))
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   // Click anywhere outside the ball/panel closes the panel.
   useEffect(() => {
