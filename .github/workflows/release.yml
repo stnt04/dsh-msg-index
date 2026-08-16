@@ -26,6 +26,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: npm pack
+      # 固定文件名附件：latest 链接无需知道版本号
+      - run: cp dsh-msg-index-*.tgz dsh-msg-index.tgz
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

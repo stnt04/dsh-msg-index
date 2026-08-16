@@ -25,15 +25,16 @@ DSH 的对话页面只渲染视口附近的少量消息（虚拟窗口），更�
 ## 安装
 
 ```sh
-# 从 GitHub Release 安装（推荐）：
+# 始终安装最新版（推荐）：
+dsh plugin --profile web add -w https://github.com/stnt04/dsh-msg-index/releases/latest/download/dsh-msg-index.tgz
+
+# 或指定版本安装：
 dsh plugin --profile web add -w https://github.com/stnt04/dsh-msg-index/releases/download/v1.0.0/dsh-msg-index-1.0.0.tgz
 ```
 
-> 升级到新版本时，把链接里的 `v1.0.0` 换成对应 Release 版本号即可。
-
 安装后重启 `dsh web`，在对话窗口右下角即可看到悬浮圆球。
 
-> 插件升级后**刷新浏览器页面**即可生效（client 插件为页面加载时注册）；若涉及服务端或配置变更需重启 `dsh web`。
+> 升级插件：重新执行上面的命令（latest 链接会自动拿到最新版），然后刷新浏览器页面即可生效；若涉及服务端或配置变更需重启 `dsh web`。
 
 ## 发布
 
